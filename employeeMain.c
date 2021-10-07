@@ -1,4 +1,3 @@
-// gcc employeeMain.c employeeTable.c employeeOne.c
 // gcc employeeMain.c employeeTable.c employeeTwo.c
 #include <string.h>
 #include <stdlib.h>
