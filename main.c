@@ -9,7 +9,7 @@ Lo Shu Magic Square
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-enum {False, True, SIDE = 3, SQUARE_AREA = 9, MUST_HAVE_SUM = 15, MAX_ATTEMPT = 5};
+enum {False, True, SIDE = 3, SQUARE_AREA = 9, MUST_HAVE_SUM = 15, MAX_ATTEMPT = 1000000};
 
 /* Function Declaration Prototype */
 int isMagicSquare(int square[SIDE][SIDE]);
@@ -19,23 +19,8 @@ void populateSquare(int square[SIDE][SIDE]);
 /* MAIN */
 int main(void)
 {
-    // int testMatrix[SIDE][SIDE] = {{1,2,3},{4,5,6},{7,8,9}};
-    // displaySquare(testMatrix);
-    // if(isMagicSquare(testMatrix))
-    //     printf("\nCongrats, the square IS a Lo Shu magic square!!!\n");
-    // else  printf("\nSorry, the square IS NOT a Lo Shu magic square!!!\n");
-    // int test2[SIDE][SIDE] = {4,9,2,3,5,7,8,1,6};
-    // // populateSquare(test2);
-    // displaySquare(test2);
-    // if(isMagicSquare(test2))
-    //     printf("\nCongrats, the square IS a Lo Shu magic square!!!\n");
-    // else  printf("\nSorry, the square IS NOT a Lo Shu magic square!!!\n");
-    // int test1[SIDE][SIDE] = {4,3,8,9,5,1,2,7,6};
-    // // populateSquare(test1);
-    // displaySquare(test1);
-    // if(isMagicSquare(test1))
-    //     printf("\nCongrats, the square IS a Lo Shu magic square!!!\n");
-    // else  printf("\nSorry, the square IS NOT a Lo Shu magic square!!!\n");
+    time_t t;
+    srand((unsigned) time(&t));
     int trialCount = 0;
     do
     {
@@ -47,34 +32,25 @@ int main(void)
             printf("\nCongrats, we found a Lo Shu magic square after %d trials!!!\n", trialCount);
             return 0;
         }
-        else
-        {
-            trialCount++;
-            displaySquare(test);
-        }
+        else trialCount++;
     } while (trialCount < MAX_ATTEMPT);
-    printf("\nIMPOSSIBLE\n");
+    printf("\nIt took too long to find, let's rerun the program...\n");
 }
 void populateSquare(int square[SIDE][SIDE])
 {
-    time_t t;
-    // Init random number generator
-    srand((unsigned) time(&t));
+    // Initialize an array
     int random_1D_array[SQUARE_AREA] = {1,2,3,4,5,6,7,8,9};
-    for (int i = 0; i < SQUARE_AREA; i++) {    // shuffle array
+    // shuffle array
+    for (int i = 0; i < SQUARE_AREA; i++) { 
         int randomIndex = rand() % SQUARE_AREA;
         int temp = random_1D_array[i];
         random_1D_array[i] = random_1D_array[randomIndex];
         random_1D_array[randomIndex] = temp;
     }
-    for (size_t i = 0; i < 9; i++)
-    {
-        printf(" - %d", random_1D_array[i]);
-    }
     // populate the square with random number from 1D array
     int pos = 0;
-    for (size_t row = 0; row < SIDE; row++){
-        for (size_t col = 0; col < SIDE; col++){
+    for (int row = 0; row < SIDE; row++){
+        for (int col = 0; col < SIDE; col++){
             square[row][col] = random_1D_array[pos++];
         }
     }
